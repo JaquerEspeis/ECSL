@@ -1,0 +1,32 @@
+{% load i18n %}
+
+Hola estimados administradores del hotel {{hotel.name}}
+<br>
+Se ha solicitado una reservación con la siguiente información:<br>
+<h2> Información de la reservación</h2>
+
+<strong>Fecha de inicio:</strong> {{reservation.reserved_start_date}}
+<br>
+<strong>Fecha de fin:</strong> {{reservation.reserved_end_date}}
+<hr>
+<h2>Información de la persona</h2>
+<strong>Nombre:</strong> {{reservation.user.get_full_name}}
+<br><strong>Identificación:</strong> {{perfil.identificacion}}
+<br><strong>Email: </strong> {{reservation.user.email}}
+<br><strong>Nacionalidad:</strong> {{perfil.get_nacionalidad_display}}
+<br><strong>Genero:</strong> {{perfil.get_genero_display}}
+<br><strong>Fecha de nacimiento:</strong> {{perfil.fecha_de_nacimiento}} 
+<hr>
+<h1> Habitaciones: </h1>
+
+<ul>
+{% for product in reservation.product_set.all%}
+	<li> {{product}} </li>
+{% endfor%}
+</ul>
+<hr>
+<h2> Gestión de la reservación </h2>
+<br> <a href="{{token.base_url}}{% url 'reservation_token' reservation.pk token.token reservation.ACEPTED %}"> Aceptar reservación</a>
+<br> <a href="{{token.base_url}}{% url 'reservation_token' reservation.pk token.token reservation.DENIED %}"> Denegar reservación</a>
+<br>
+Si tiene alguna duda por favor contactar a la organización del Encuentro Centroamericano de Software Libre

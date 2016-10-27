@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="faq" class="container">
+    {% regroup object_list by category as categories %}
+    <nav class="row col-md-4 pull-right">
+        <dl>
+            {% for category in categories %}
+                <dt {{ category.grouper.data_emoji_alt }}><a href="#category-{{ category.grouper.pk }}">{{ category.grouper.name }}</a></dt>
+                <dd>
+                    <ul>
+                        {% for question in category.list %}
+                            <li><a href="#question-{{ question.pk }}">{{ question.question }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% endfor %}
+        </dl>
+    </nav>
+    <div class="row col-md-8">
+        <h1>FAQ</h1>
+        <p>
+            Here, you can find answers to most frequently asked questions.
+            We'll do our best to keep this section informative and up-to-date.
+        </p>
+    </div>
+    {% for category in categories %}
+        <h2 class="row col-md-8 category" id="category-{{ category.grouper.pk }}" {{ category.grouper.data_emoji_alt }}>{{ category.grouper.name }}</h2>
+        {% for question in category.list %}
+            <div class="row col-md-8 question" id="question-{{ question.pk }}">
+                <div>
+                    <h3>{{ question.question }}</h3>
+                    <p>{{ question.answer|linebreaks|urlize }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</section>
+{% endblock %}

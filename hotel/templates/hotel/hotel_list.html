@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+<div class="row">
+  <div class="col-md-4">
+		<ul class="nav nav-pills nav-stacked" role="tablist" >
+		{% for hotel in object_list %}
+		    <li role="presentation" {% if forloop.counter0 == 0%}class="active"{%endif%} >
+		    	<a href="#hotel{{hotel.pk}}" aria-controls="home" role="tab" 
+		    	data-toggle="tab">{{ hotel }}</a>
+		    	 </li>
+		{% empty %}
+		    <div class="alert alert-info">{% trans 'No hotel yet.' %}</div>
+		{% endfor %}
+		</ul>
+</div>
+  <div class="col-md-8">
+		<div class="tab-content">
+		{% for hotel in object_list %}
+<div role="tabpanel" class="tab-pane {% if forloop.counter0 == 0%}active{%endif%}" id="hotel{{hotel.pk}}">
+<div class="well">
+	<p>{{hotel.description}}</p>
+	<a class="btn btn-success btn-sm" href="{{hotel.url}}" target="_blank">
+		{% trans 'Go to web site' %}</a>
+</div>
+
+		<div class="table-responsive">
+		<table class="table table-bordered">  
+			  	
+		{% for hfloor in hotel.get_room_per_floor %}
+		
+		<tr>
+			<th> {% trans 'Floor' %} {{hfloor.0.floor}} </th>
+			{% for room in hfloor %}
+			{% if room.available_beds != 0 %}
+			<td> 
+				<a href="{% url 'reserve_room' room.pk %}"
+				class="btn btn-xs btn-info"> {% trans 'Reserve now' %} </a>	
+				{% trans 'Room' %}: {{room.number}} <br>
+				{% trans 'Beds' %}: {{room.total_beds}} &nbsp; &nbsp;
+				{% trans 'Available'%}: {{room.available_beds}}<br>
+				{% trans 'Price per bed' %}: {{room.coin}}{{room.price_per_bed}}<br> 
+			</td>
+			{% endif %}
+			{% endfor%}
+		</tr>
+		{% endfor %}
+		</table>  
+		</div>  	
+		    </div>
+		{% endfor %}
+		</div>
+  </div>
+
+</div>
+
+
+{% if is_paginated %}
+        <ul class="pagination pagination-centered">
+            {% if page_obj.has_previous %}
+                <li><a href="?page=1"> << </a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}"> < </a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">></a></li>
+                <li><a href="?page={{ page_obj.paginator.num_pages }}">>></a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
