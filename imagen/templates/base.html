@@ -26,7 +26,8 @@
     <ul class="nav navbar-nav">
     	
         {% if request.user.is_authenticated %}     
-        <li ><a href="{% url 'profile' %}"> Perfil </a></li>
+        
+        <li ><a href="{% url 'subscribe' %}"> {% trans 'Subscribe' %} </a></li>
         <li><a href="{% url 'reservation_list' %}"> {% trans 'My reservations' %}  </a> </li>
         <li><a href="{% url 'hotel_list' %}"> {% trans 'Reserve hotel' %}  </a>
         <li><a href="{% url 'tshirt:objectview_list' %}"> {% trans 'Reserve Tshirt' %} </a>
@@ -38,13 +39,20 @@
         <li><a href="{% url 'faq_list' %}">{% trans 'Common questions' %}</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+  <li role="presentation" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      {% trans 'User:' %} {{ request.user.get_full_name}}<span class="caret"></span>
+    </a>
+    	<ul class="dropdown-menu">
         {% if request.user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="#">{% trans 'User:' %} {{ request.user.get_full_name}}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}">{% trans "Log out" %}</a></li>
+       
+      	  <li ><a href="{% url 'profile' %}"> {% trans 'Profile' %} </a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}">{% trans "Log out" %}</a></li>
         {% else %}
             <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">{% trans "Log in" %}</a></li>
         {% endif %}
-    </ul>
+       </ul>
+   </li> </ul>
 </nav>
 
 {# CONTENT #}
@@ -70,7 +78,7 @@
 {# FOOTER #}
 <footer class="footer">
     <div class="container">
-        <p class="text-muted"><strong>Solvo</strong> {% now 'Y' %}
+        <p class="text-muted"><strong>ECSL</strong> {% now 'Y' %}
     </div>
 </footer>
 

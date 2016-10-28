@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from register.models import Profile
+from register.models import Profile, Inscription
 
 
 class ProfileForm(forms.ModelForm):
@@ -46,3 +46,12 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'
         exclude = ['user']
+
+
+class InscriptionForm(forms.ModelForm):
+
+    class Meta:
+        model = Inscription
+        fields = ['subvention_request', 'subvention_description',
+                  'mozilla_subvention', 'mozilla_subvention_description'
+                  ]

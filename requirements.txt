@@ -3,3 +3,4 @@ django-bootstrap-form==3.2.1
 django-registration==2.1.2
 Pillow
 django-reservation
+django-paypal

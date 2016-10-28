@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load bootstrap static %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">  	
+<div>
+  <h1>{% trans 'Pre-register' %}</h1>
+</div>
+{% if success %}
+<div class="alert alert-success" >
+	{{success}}
+</div>
+{% else %}
+
+{% if inscription.preregistered %}
+<div class="alert alert-success" >
+	{% trans _('You are pre-registered') %}
+</div>
+{% else %}
+<div class="row">
+	{% if form.errors %}
+		<div class="alert alert-warning"> {{form.errors}} </div>
+	{% endif %}
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form|bootstrap  }}
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">{% trans 'Pre-register' %}</button>
+    </div>
+  </form>
+</div>
+{% endif %}
+{% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+function show_description(check, text, label){
+	if($(check).is(':checked')){
+	    $(text).show();  // checked
+	    $(label).show();
+	}else{
+	    $(text).hide();  // unchecked
+	    $(label).hide();
+	}
+}
+
+$("#id_subvention_request").change(function(){
+	show_description("#id_subvention_request", "#id_subvention_description", 
+	"label[for=id_subvention_description]");
+});
+
+$("#id_mozilla_subvention").change(function(){
+	show_description("#id_mozilla_subvention", "#id_mozilla_subvention_description",
+"label[for=id_mozilla_subvention_description]");
+});
+show_description("#id_subvention_request", "#id_subvention_description", 
+"label[for=id_subvention_description]");
+show_description("#id_mozilla_subvention", "#id_mozilla_subvention_description",
+"label[for=id_mozilla_subvention_description]");
+
+</script>
+
+{% endblock%}

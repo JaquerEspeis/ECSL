@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">  	
+  	<h1> {% trans 'Inscription details' %}</h1>
+  	
+  	{% if inscription.payed %}
+  	<div class="alert alert-success"> {% trans 'You are registered' %}</div>
+  	{% else %}
+  	{% if inscription.registered %}
+		<div class="alert alert-info">
+			{% trans 'Already it registered at the event' %}
+		</div>
+		<strong> {% trans 'Mozilla subvention' %}: </strong> {{inscription.mozilla_subvention}}
+		<strong> {% trans 'Subvention requested' %}: </strong> {{inscription.subvention_request}}
+	  	{% else %}
+	  	<a href=""  class="btn btn-success"> {% trans 'Sign up on the event' %}</a>
+	  	{% endif %}
+  	
+  	{% endif %}
+  </div>
+</div>
+
+
+{% endblock %}
