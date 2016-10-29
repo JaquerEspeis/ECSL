@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'hotel',
     'proposal',
     "djreservation",
+
+    'paypal.standard.ipn',
 ]
+
+PAYPAL_TEST = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,3 +146,6 @@ DJRESERVATION_TOKENIZE = True
 
 INSCRIPTION_START_DATE = "20/02/2012 00:00"
 INSCRIPTION_END_DATE = "19/07/2019 00:00"
+INSCRIPTION_COST = "150"
+PAYPAL_EMAIL = "luisza14-facilitator@gmail.com"
+PAYPAL_SITE_BASE = "https://luisza.pagekite.me"

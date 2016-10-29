@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% block content %}
+
+<div class="well">
+{% if status == 'success' %}
+	<h2> {% trans 'Paypal received successfully' %}</h2>
+{% else %}
+	<h2> {% trans 'Sorry: Wrong Paypal notification ' %}</h2>
+{%endif %}
+</div>
+{% endblock %}

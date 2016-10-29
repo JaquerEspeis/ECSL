@@ -17,7 +17,31 @@
 		<strong> {% trans 'Mozilla subvention' %}: </strong> {{inscription.mozilla_subvention}}
 		<strong> {% trans 'Subvention requested' %}: </strong> {{inscription.subvention_request}}
 	  	{% else %}
-	  	<a href=""  class="btn btn-success"> {% trans 'Sign up on the event' %}</a>
+	   	
+	  	 	<br><br>
+	  	<table class="table">
+	  		<tr>
+	  			<th>{% trans 'Description' %}</th>
+	  			<td> {% trans 'Sign up on the ECSL' %}</td>
+	  		</tr>
+	  		<tr>
+	  			<th>{% trans 'Subscritor' %}</th>
+	  			<td> {{ inscription.user.get_full_name }}</td>
+	  		</tr>
+	  		
+	  		<tr>
+	  			<th>{% trans 'Cost' %}</th>
+	  			<td> {{cost}}</td>
+	  		</tr>
+	  		<tr>
+	  			<th> </th>
+	  			<td> 	{{ form.render }}	</td>
+	  		</tr>
+	  		
+	  	</table>
+	  	
+	  		  	
+	  	
 	  	{% endif %}
   	
   	{% endif %}

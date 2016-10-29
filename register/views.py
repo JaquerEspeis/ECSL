@@ -8,10 +8,12 @@ from django.urls.base import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import CreateView, UpdateView
 
 from register.forms import ProfileForm, InscriptionForm
 from register.models import Profile, Inscription
+from register.paypal import PaypalForm
 
 
 def in_register_time():
@@ -36,8 +38,11 @@ def subscribe(request):
     success = None
     inscription = Inscription.objects.filter(user=user).first()
     if inscription and inscription.preregistered and in_register_time():
+        form = PaypalForm(inscription)
         return render(request, 'register/inscription.html',
-                      {'inscription': inscription})
+                      {'inscription': inscription,
+                       'cost': settings.INSCRIPTION_COST,
+                       'form': form})
 
     if request.method == 'POST':
         form = InscriptionForm(request.POST)
@@ -103,3 +108,8 @@ def profile_view(request):
         return redirect(reverse('edit_profile', args=(profile.pk,)))
     except:
         return redirect(reverse('create_profile'))
+
+
+@csrf_exempt
+def paypal_response(request, status):
+    return render(request, 'register/paypal.html', {'status': status})
