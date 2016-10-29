@@ -148,4 +148,14 @@ INSCRIPTION_START_DATE = "20/02/2012 00:00"
 INSCRIPTION_END_DATE = "19/07/2019 00:00"
 INSCRIPTION_COST = "150"
 PAYPAL_EMAIL = "luisza14-facilitator@gmail.com"
+
+# Change this for your site url
+
 PAYPAL_SITE_BASE = "https://luisza.pagekite.me"
+
+
+"""
+In paypal sandbox a demo user is: 
+luisza14-buyer@gmail.com
+o7n|it&#9t
+"""
